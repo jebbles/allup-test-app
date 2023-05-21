@@ -1,4 +1,4 @@
-# [allUP Video Playlist Demo App](https://duckduckgo.com](https://jebbles.github.io/allup-test-app/)
+# [allUP Video Playlist Demo App](https://jebbles.github.io/allup-test-app/)
 
 ## Setup
 
