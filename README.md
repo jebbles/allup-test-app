@@ -1,4 +1,4 @@
-# create-vite
+# allup-test-app
 
 ## Scaffolding Your First Vite Project
 
