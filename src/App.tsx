@@ -60,23 +60,26 @@ export function App(): JSX.Element {
 
   return (
     <>
-      <Tab.Group as="div" className="flex h-screen w-screen">
+      <Tab.Group
+        as="div"
+        className="m-0 flex h-screen w-screen flex-col p-0 lg:flex-row"
+      >
         {({ selectedIndex }) => (
           <>
-            <div className="hidden shadow-2xl lg:relative lg:inset-y-0 lg:z-50 lg:flex lg:w-1/4 lg:min-w-[300px] lg:max-w-[420px] lg:flex-col">
-              <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
-                <div className="flex h-16 w-full shrink-0 items-center justify-between gap-x-4">
+            <div className="shadow-2xl lg:relative lg:inset-y-0 lg:z-50 lg:flex lg:w-1/4 lg:min-w-[300px] lg:max-w-[420px] lg:flex-col">
+              <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white p-4  lg:px-6">
+                <div className="flex w-full shrink-0 items-center justify-between gap-x-4">
                   <img
-                    className="h-8 w-auto"
+                    className="h-6 w-auto lg:h-8"
                     src={allupLogo}
                     alt="Your Company"
                   />
-                  <p className="text-xl font-bold">Video Playlist</p>
+                  <p className="text-md font-bold lg:text-xl">Video Playlist</p>
                 </div>
-                <nav className="">
+                <nav>
                   <Tab.List
                     as="div"
-                    className="m-0 flex flex-col space-y-4 border-0 p-0"
+                    className="m-0 flex flex-row justify-around space-x-4 border-0 p-0 lg:flex-col lg:space-x-0 lg:space-y-4"
                   >
                     {videos.map((item, index) => (
                       <Tab
@@ -86,10 +89,15 @@ export function App(): JSX.Element {
                           selectedIndex == index
                             ? "ring-4 ring-amber-400 ring-offset-4"
                             : "ring-transparent hover:ring-slate-200",
-                          "group relative h-32 cursor-pointer overflow-hidden rounded-xl border-0 p-0 text-sm font-semibold outline-none transition-all active:outline-none"
+                          "group relative h-12 flex-1 cursor-pointer overflow-hidden rounded-xl border-0 p-0 text-sm font-semibold outline-none transition-all active:outline-none lg:h-32 lg:w-full"
                         )}
                       >
-                        <div className="VideoThumbnail transition-all group-hover:scale-110">
+                        <div
+                          className={classNames(
+                            selectedIndex == index ? "scale-110" : "",
+                            "VideoThumbnail w-full transition-all group-hover:scale-110"
+                          )}
+                        >
                           <VideoThumbnail
                             videoUrl={item.src}
                             thumbnailHandler={(thumbnail: any) =>
@@ -100,15 +108,22 @@ export function App(): JSX.Element {
                         </div>
 
                         <div className="absolute bottom-0 left-0 flex h-full w-full items-end justify-between bg-gradient-to-t from-black/75 p-2 transition-all group-hover:opacity-75"></div>
-                        <div className="group absolute bottom-0 left-0 flex h-full w-full items-end justify-between p-2">
-                          <div className="text-lg font-bold text-white">
+                        <div
+                          className={classNames(
+                            selectedIndex == index
+                              ? "backdrop-blur-sm lg:backdrop-blur-none"
+                              : "",
+                            "group absolute bottom-0 left-0 flex h-full w-full items-center justify-center p-2 transition-all lg:items-end lg:justify-between"
+                          )}
+                        >
+                          <div className="hidden text-lg font-bold text-white lg:block">
                             {item.title}
                             <p className="text-xs font-normal">
                               by {item.author}
                             </p>
                           </div>
                           {selectedIndex == index ? (
-                            <p className="relative bottom-1 rounded-full bg-amber-500 px-2 py-1 text-xs font-bold uppercase tracking-widest text-white">
+                            <p className="relative rounded-full py-1 text-xs font-bold uppercase text-white lg:bottom-1 lg:block lg:bg-amber-500 lg:px-2 lg:tracking-widest">
                               Playing
                             </p>
                           ) : (
@@ -122,16 +137,19 @@ export function App(): JSX.Element {
               </div>
             </div>
 
-            <div className="h-screen w-full flex-1">
-              <Tab.Panels as="main" className="bg-slate-200">
-                <div className="relative flex h-screen items-center justify-center p-10">
+            <div className="h-full flex-1 lg:h-screen">
+              <Tab.Panels
+                as="main"
+                className="relative flex h-full w-screen items-center justify-center bg-slate-200 lg:h-screen lg:w-auto"
+              >
+                <div className="flex items-center justify-center px-5 lg:px-10">
                   {videos.map((video) => (
                     <Tab.Panel as="div" key={video.src} unmount={true}>
                       <div
                         className={classNames(
                           fullWidth
-                            ? "absolute left-0 top-0 z-10 w-screen bg-gradient-to-b from-black/75 p-5 px-10 text-white "
-                            : "relative pb-10",
+                            ? "absolute left-0 top-0 z-10 w-screen bg-gradient-to-b from-black/75 pb-20 pt-10 text-white"
+                            : "relative pb-5",
                           "flex flex-col items-center justify-between text-center lg:flex-row lg:text-left"
                         )}
                       >
@@ -139,52 +157,56 @@ export function App(): JSX.Element {
                           <h4 className="text-sm font-bold uppercase tracking-widest">
                             Now Playing
                           </h4>
-                          <h3 className="text-3xl font-bold">{video.title}</h3>
+                          <h3 className="whitespace-nowrap text-3xl font-bold">
+                            {video.title}
+                          </h3>
                         </div>
-                        <p>by {video.author}</p>
+                        <p className="text-sm">by {video.author}</p>
                       </div>
-                      <div
-                        className={classNames(
-                          fullWidth ? "" : "relative",
-                          "h-full max-h-[100vh] w-full max-w-[100vw] overflow-hidden rounded-xl shadow-2xl lg:max-h-[calc(100vh-200px)] lg:max-w-[calc(100vw-100px)]"
-                        )}
-                      >
-                        <video
-                          src={video.src}
+                      <div className="flex items-center justify-center">
+                        <div
                           className={classNames(
-                            fullWidth
-                              ? "absolute left-0 top-0 h-full overflow-hidden object-cover"
-                              : ""
+                            fullWidth ? "" : "relative",
+                            "overflow-hidden rounded-xl bg-slate-900/25 shadow-2xl"
                           )}
-                          autoPlay={true}
-                          muted={true}
-                          loop={true}
-                          style={{ aspectRatio: video.width / video.height }}
-                        />
-                        <div className="absolute bottom-3 right-3 z-40 rounded-full bg-gray-900/25 px-2 py-0.5 text-xs text-white/75 backdrop-blur-sm">
-                          {video.width} x {video.height}
+                        >
+                          <video
+                            src={video.src}
+                            className={classNames(
+                              fullWidth
+                                ? "absolute left-0 top-0 h-full w-full overflow-hidden object-cover"
+                                : "h-full max-h-[55vh] w-full lg:max-h-[75vh]"
+                            )}
+                            autoPlay={true}
+                            muted={true}
+                            loop={true}
+                            style={{ aspectRatio: video.width / video.height }}
+                          />
+                          <div className="absolute bottom-3 right-3 z-40 rounded-full bg-gray-900/25 px-2 py-0.5 text-xs text-white/75 backdrop-blur-sm">
+                            {video.width} x {video.height}
+                          </div>
                         </div>
                       </div>
                       <div
                         className={classNames(
                           fullWidth
                             ? "absolute bottom-0 left-0 z-10 w-screen bg-gradient-to-t from-black/75 p-5 pb-10 text-white"
-                            : "relative pt-10",
+                            : "relative pt-5",
                           "flex flex-col items-center justify-between text-center"
                         )}
                       >
                         <button
                           onClick={handleWidth}
-                          className="group flex items-center justify-between gap-x-3 rounded-full bg-slate-900 px-10 py-2 font-bold text-white lg:hidden"
+                          className="text-md group flex items-center justify-between gap-x-3 rounded-full bg-slate-900 px-8 py-2 font-bold text-white lg:hidden"
                         >
                           {fullWidth ? (
                             <>
-                              <XMarkIcon className="h-6 w-6 transition-all group-hover:scale-125" />
+                              <XMarkIcon className="h-5 w-5 transition-all group-hover:scale-125" />
                               Exit Fullscreen
                             </>
                           ) : (
                             <>
-                              <ArrowsPointingOutIcon className="h-6 w-6 transition-all group-hover:scale-125" />
+                              <ArrowsPointingOutIcon className="h-5 w-5 transition-all group-hover:scale-125" />
                               Fullscreen
                             </>
                           )}
