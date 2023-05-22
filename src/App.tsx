@@ -142,7 +142,7 @@ export function App(): JSX.Element {
             <div className="h-full flex-1 lg:h-screen">
               <Tab.Panels
                 as="main"
-                className="relative flex h-full w-screen items-center justify-center bg-slate-200 lg:h-screen lg:w-auto"
+                className="relative flex h-full w-screen items-start justify-center bg-slate-200 lg:h-screen lg:w-auto lg:items-center"
               >
                 <div className="flex items-center justify-center px-5 lg:px-10">
                   {videos.map((video) => (
@@ -150,14 +150,14 @@ export function App(): JSX.Element {
                       as="div"
                       key={video.src}
                       unmount={true}
-                      className="pb-10"
+                      className="pb-5"
                     >
                       <div
                         className={classNames(
                           fullWidth
                             ? "absolute left-0 top-0 z-10 w-screen justify-center bg-gradient-to-b from-black/75 pb-20 pt-10 text-white"
                             : "relative justify-start py-3 text-slate-800 lg:py-5 lg:pt-0 ",
-                          "flex flex-col items-end justify-between text-center lg:flex-row lg:text-left"
+                          "flex flex-col items-center justify-between text-center lg:flex-row lg:items-end lg:text-left"
                         )}
                       >
                         <div>
