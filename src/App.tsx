@@ -74,7 +74,9 @@ export function App(): JSX.Element {
                     src={allupLogo}
                     alt="Your Company"
                   />
-                  <p className="text-md font-bold lg:text-xl">Video Playlist</p>
+                  <p className="text-md font-bold text-slate-800 lg:text-xl">
+                    Video Playlist
+                  </p>
                 </div>
                 <nav>
                   <Tab.List
@@ -95,7 +97,7 @@ export function App(): JSX.Element {
                         <div
                           className={classNames(
                             selectedIndex == index ? "scale-110" : "",
-                            "VideoThumbnail w-full transition-all group-hover:scale-110"
+                            "VideoThumbnail h-32 w-full transition-all group-hover:scale-110"
                           )}
                         >
                           <VideoThumbnail
@@ -103,7 +105,7 @@ export function App(): JSX.Element {
                             thumbnailHandler={(thumbnail: any) =>
                               console.log(thumbnail)
                             }
-                            height={300}
+                            height={40}
                           />
                         </div>
 
@@ -144,24 +146,31 @@ export function App(): JSX.Element {
               >
                 <div className="flex items-center justify-center px-5 lg:px-10">
                   {videos.map((video) => (
-                    <Tab.Panel as="div" key={video.src} unmount={true}>
+                    <Tab.Panel
+                      as="div"
+                      key={video.src}
+                      unmount={true}
+                      className="pb-10"
+                    >
                       <div
                         className={classNames(
                           fullWidth
-                            ? "absolute left-0 top-0 z-10 w-screen bg-gradient-to-b from-black/75 pb-20 pt-10 text-white"
-                            : "relative pb-5",
-                          "flex flex-col items-center justify-between text-center lg:flex-row lg:text-left"
+                            ? "absolute left-0 top-0 z-10 w-screen justify-center bg-gradient-to-b from-black/75 pb-20 pt-10 text-white"
+                            : "relative justify-start py-3 text-slate-800 lg:py-5 lg:pt-0 ",
+                          "flex flex-col items-end justify-between text-center lg:flex-row lg:text-left"
                         )}
                       >
                         <div>
-                          <h4 className="text-sm font-bold uppercase tracking-widest">
+                          <h4 className="text-xs font-bold uppercase tracking-widest lg:text-sm">
                             Now Playing
                           </h4>
-                          <h3 className="whitespace-nowrap text-3xl font-bold">
+                          <h3 className="whitespace-nowrap text-xl font-bold lg:text-2xl">
                             {video.title}
                           </h3>
                         </div>
-                        <p className="text-sm">by {video.author}</p>
+                        <p className="pb-1 text-xs lg:text-sm">
+                          by {video.author}
+                        </p>
                       </div>
                       <div className="flex items-center justify-center">
                         <div
@@ -175,7 +184,7 @@ export function App(): JSX.Element {
                             className={classNames(
                               fullWidth
                                 ? "absolute left-0 top-0 h-full w-full overflow-hidden object-cover"
-                                : "h-full max-h-[55vh] w-full lg:max-h-[75vh]"
+                                : "h-full max-h-[calc(70vh-146px)] w-full lg:max-h-[75vh]"
                             )}
                             autoPlay={true}
                             muted={true}
